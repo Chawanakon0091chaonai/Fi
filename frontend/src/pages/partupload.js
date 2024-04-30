@@ -16,8 +16,8 @@ function App() {
 
     // S3 Credentials
     AWS.config.update({
-      accessKeyId: "AKIAXWAJ4NY35JLIL6MD",
-      secretAccessKey: "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",
+      accessKeyId: "",
+      secretAccessKey: "",
     });
 
     // Initialize S3 instance
@@ -27,7 +27,7 @@ function App() {
     });
 
     // Chunk size (in bytes)
-    const CHUNK_SIZE = 128 * 512 * 128; // 255KB
+    const CHUNK_SIZE = 1019 * 103 * 50; // 255KB
 
     // Calculate total number of chunks
     const numChunks = Math.ceil(file.size / CHUNK_SIZE);
