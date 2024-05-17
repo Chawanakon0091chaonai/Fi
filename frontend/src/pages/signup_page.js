@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2'
 
 const apiUrl = 'http://localhost:4000/register'; 
 
@@ -15,34 +16,67 @@ const Register = () => {
 }
   const handleSubmit = async(e) => {
     e.preventDefault();
-    window.location.href = '/login';
-  
   try {
     const response = await axios.post(apiUrl, data_body);
-    console.log(response.data); 
-  
+    if (email !== "" && name !== "" && pwd !== ""){
+      Swal.fire({
+        position: 'mid',
+        icon: 'success',
+        title: 'Signup succeeded',
+        showConfirmButton: false,
+        timer: 1000
+      })
+      setTimeout(() => {window.location.href = '/login';}, 1500);
+      console.log(response.data); 
+    }
+    else{
+      Swal.fire({
+        icon: 'error',
+        title: 'Signup failed.',
+        text: 'Enter something',
+      })
+    }
   } catch (error) {
     console.error('Error:', error);
-    
+    Swal.fire({
+      icon: 'error',
+      title: 'Signup failed.',
+      text: 'Password does not match',
+    })
   }
   }
 
   return (
     <>
     <div className="container-xl text-center">
-      <div className="row">
+      <div className="row my-5">
         <div className="col"></div>
-        <div className="col ">
+        <div className="col border border-2 rounded">
         <h1 className='my-5'>Signup</h1>
-      <form onSubmit={handleSubmit} class="text-start">
+      <form onSubmit={handleSubmit} className="text-start">
         <label>Name</label>
         <input
           type="text"
           id="name"
           name="name"
           value={name}
-          class="form-control"
-          onChange={(e) => setName(e.target.value)}
+          className="form-control"
+          onChange={(e) => {
+            const nameInput = e.target.value;
+            const regex = /^[a-zA-Z0-9]*$/;
+
+            if (regex.test(nameInput)) {
+              setName(nameInput);
+            } else {
+              
+              Swal.fire({
+                title: "Warning",
+                text: "Special characters are not allowed.",
+                icon: "warning"
+              });
+            }
+          }}
+          required
         />
         <br/>
         <label>Email</label>
@@ -51,7 +85,7 @@ const Register = () => {
           id="email"
           name="email"
           value={email}
-          class="form-control"
+          className="form-control"
           onChange={(e) => setEmail(e.target.value)}
         />
         <br/>
@@ -61,14 +95,14 @@ const Register = () => {
           id="pwd"
           name="pwd"
           value={pwd}
-          class="form-control"
+          className="form-control"
           onChange={(e) => setPwd(e.target.value)}
         />
         <br/>
-        <div className="col text-center"><input type="submit" value="Submit" class="btn btn-primary "/></div>
+        <div className="col text-center"><input type="submit" value="Submit" className="btn btn-primary "/></div>
       </form>
 
-      <div className="col my-3"><a class="my-5" href='/login'>Login</a></div>
+      <div className="col my-3"><a className="my-5" href='/login'>Login</a></div>
         </div>
         <div className="col"></div>
       </div>

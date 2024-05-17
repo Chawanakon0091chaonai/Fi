@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+            import React, { useState } from "react";
 
 function rleCompress(data) {
     let compressed = '';
@@ -104,11 +104,11 @@ const Main = () => {
             const clockElement = document.createElement('div');
             document.body.appendChild(clockElement);
     
-            let startTime = Date.now();
+            let startTime = Date.now(); 
             let timerId;
     
             videoElement.onloadedmetadata = () => {
-                const targetWidth = 1280;
+                const targetWidth = 1280; 
                 const targetHeight = 720;
                 const targetFrameRate = 24; 
     
@@ -279,16 +279,19 @@ const Main = () => {
 
     return (
         <>
-            <div className="container text-center">
+            <div className="container text-center my-5 border rounded py-5">
                 <h1>Compress</h1>
+                <br/>
+                <a href="/base">base64</a>
+                <p></p>
                 <form onSubmit={handleSubmit}>
                     <div className="row">
-                    <a href="/main">Back</a>
+                    
                     </div>
                     <label>Upload</label>
                     <input type='file' onChange={getFile} />
                     <br /><br />
-                    <input type="submit" value="Compress" />
+                    <input type="submit" value="Compress"  className="btn btn-primary"/>
                 </form>
                 {compressedFileUrl && (
                     <>
@@ -315,10 +318,12 @@ const Main = () => {
                                 </audio>
                             )
                         )}
-                        <br /><br />
-                        <button onClick={handleDownload}>Download Compressed File</button>
+                        <br/><br/>
+                        <button onClick={handleDownload} className="btn btn-success">Download Compressed File</button>
                     </>
                 )}
+                <br/>
+                <a href="/main">Back</a>
             </div>
         </>
     );

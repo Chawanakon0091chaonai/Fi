@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2'
 
 const apiUrl = 'http://localhost:4000/login'; 
 
@@ -21,11 +22,17 @@ const Login = () => {
   try {
     const response = await axios.post(apiUrl, data_body);
     const { accessToken, refreshToken } = response.data;
-
     localStorage.setItem('accessToken', accessToken)
     localStorage.setItem('refreshToken', refreshToken)
    
-    window.location.href = '/main';
+    Swal.fire({
+      position: 'mid',
+      icon: 'success',
+      title: 'Login succeeded',
+      showConfirmButton: false,
+      timer: 1000
+    })
+    setTimeout(() => {window.location.href = '/main';}, 1500);
 
   } catch (error) {
     console.error('Error:', error);
@@ -44,14 +51,19 @@ const Login = () => {
 };
   return (
     <>
-    <h1>Login</h1>
-      <form onSubmit={handleSubmit}>    
+    <div className="container-xl text-center">
+    <div className="row mt-5 ">
+      <div className="col-md-4"></div>
+      <div className="col-md-4 border border-2 rounded">
+      <h1 className='my-5'>Login</h1>
+      <form onSubmit={handleSubmit} className='text-start' >    
         <label>Email</label>
         <input
           type="text"
           id="email"
           name="email"
           value={email}
+          className="form-control"
           onChange={(e) => setEmail(e.target.value)}
         />
         <br/>
@@ -61,16 +73,23 @@ const Login = () => {
           id="password"
           name="password"
           value={pwd}
+          className="form-control"
           onChange={(e) => setPwd(e.target.value)}
         />
         <br />
         {error && <p style={{ color: 'red' }}>{error}</p>}
-        <br />
-        <br/>
-        <input type="submit" value="Submit" />
-        <br/>
-        <a href='/signup'>Signup</a>
+        
+        <div className="text-center"><input type="submit" value="Submit" className='btn btn-primary my-3 ' /></div>
       </form>
+      
+      <br/>
+      <a href='/signup' className='mb-3'>Signup</a>
+      <br/>
+      <br/>
+     
+      </div>
+    </div>
+    </div>
     </>
   );
 };

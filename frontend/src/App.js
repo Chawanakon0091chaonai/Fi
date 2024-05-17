@@ -9,6 +9,7 @@ import Login from "./pages/login_page.js";
 import Compress from "./pages/compress.js";
 import Part from "./pages/partupload.js";
 import Image from "./pages/image.js";
+import Base from "./pages/base64.js";
 
 
 
@@ -33,6 +34,7 @@ function App() {
       <Route path="/compress" element={<Compress />} />
       <Route path="/part" element={<Part />} />
       <Route path="/image" element={<Image />} />
+      <Route path="/base" element={<Base />} />
       {/* <Route path="/main" element={LoggedIn?<Main /> : <Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/profile" element={LoggedIn?<Profile/> : <Login />}/>
